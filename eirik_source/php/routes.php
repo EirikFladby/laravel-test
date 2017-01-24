@@ -30,5 +30,29 @@ Route::post('/double/result', 'DoubleController@calculateDouble');
 // STEP 5
 // Assuming "input from request" is the parameters. Not sure what is intended with the XML link in the task. I display it as described in the task.
 // I don't use the XML link since it doesn't look very well and the details are unclear. If I add varsel.xml at the end of the URL, I get the XML link.
-// If I don't, I get the latest weather forecast.
+// If I don't, I get the latest weather forecast. I could also have created a Route::post and send the parts of the URL as variables to the view 
+// and display the XML file in a prettier way. Weather.blade.php was intended for this, but is currently not used and/or done.
 Route::get ('/weather/{land}/{fylke}/{kommune}/{stedsnavn}', 'WeatherController@weatherPage');
+
+
+//STEP 6
+// Can't find App\Console\Commands\Faker\Factory in Faker.php, so the command doesn't work when: 
+//$faker = Faker\Factory::create();
+// and
+// $this->info($faker->name);
+// is used in Faker.php. Works in routes.php for some reason with the code below.
+
+
+// testing Faker\Factory
+Route::get('/customers',function(){
+    $faker = Faker\Factory::create();
+
+    $items = array();
+    $limit = 10;
+
+    for ($i = 0; $i < $limit; $i++) {
+        
+        $items[] = $faker->name . ', ';
+    }
+    return $items;
+});
